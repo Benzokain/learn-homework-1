@@ -14,13 +14,27 @@
   и выводя на экран результаты
 
 """
+def string_func(stroka1, stroka2):
+  if type(stroka1) != type('s') or type(stroka2) != type('s'):
+    return '0'
+  if stroka1 == stroka2:
+    return 1
+  if len(stroka1) != len(stroka2) and stroka2 == 'learn':
+    return 3
+  elif len(stroka1) != len(stroka2) and len(stroka1) > len(stroka2):
+    return 2
+  
+    
 
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+    print(string_func('aa',2)) # 0
+    print(string_func('aa','aa') )# 1
+    print(string_func('aaaa','aa') )# 2
+    print(string_func('aaaabbbccc','learn')) # 3
     
 if __name__ == "__main__":
     main()

@@ -13,6 +13,8 @@
 
 """
 import logging
+import ephem
+import settings
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -36,17 +38,27 @@ def greet_user(update, context):
     update.message.reply_text(text)
 
 
+# def talk_to_me(update, context):
+#     user_text = update.message.text
+#     print(user_text)
+#     update.message.reply_text(user_text)
 def talk_to_me(update, context):
-    user_text = update.message.text
+    user_text = update.message.text.split()[-1]
     print(user_text)
-    update.message.reply_text(text)
+    update.message.reply_text(ephem.constellation)
+
+def constellation_info(update, context):
+    # print(f'Вызван {update.message.text}')
+    planet = update.message.text.split()[-1]
+    print(planet)
 
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
+    mybot = Updater(settings.API_KEY, use_context=True)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", constellation_info))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
