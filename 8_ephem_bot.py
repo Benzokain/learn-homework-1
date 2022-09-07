@@ -15,6 +15,9 @@
 import logging
 import ephem
 import settings
+from datetime import datetime
+from telegram.ext import Updater
+
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -37,20 +40,38 @@ def greet_user(update, context):
     print(text)
     update.message.reply_text(text)
 
+def get_date():
+    return str(datetime.now().date()).replace('-','/')
+
+# def get_planetlist ():
+#     list_planets = []
+#     for i in ephem._libastro.builtin_planets():
+#         list_planets.append(i[-1])
+#     return list_planets
+
 
 # def talk_to_me(update, context):
 #     user_text = update.message.text
 #     print(user_text)
 #     update.message.reply_text(user_text)
-def talk_to_me(update, context):
-    user_text = update.message.text.split()[-1]
-    print(user_text)
-    update.message.reply_text(ephem.constellation)
 
 def constellation_info(update, context):
-    # print(f'Вызван {update.message.text}')
-    planet = update.message.text.split()[-1]
-    print(planet)
+    user_text = update.message.text.split()[-1]
+    print(user_text)
+    print(f'Планета {user_text} в созвездии:')
+    program = f'update.message.reply_text(ephem.constellation(ephem.{user_text}(get_date())))'
+    exec(program)
+    # update.message.reply_text(ephem.constellation(ephem.Mars(get_date())))
+
+def talk_to_me(update, context):
+    user_text = update.message.text
+    print(user_text)
+    update.message.reply_text(user_text)
+
+# def constellation_info(update, context):
+#     # print(f'Вызван {update.message.text}')
+#     planet = update.message.text.split()[-1]
+#     print(planet)
 
 
 def main():
