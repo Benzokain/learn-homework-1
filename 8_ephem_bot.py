@@ -48,6 +48,7 @@ def constellation_info(update, context):
     print(user_text)
     result = getattr(ephem, user_text)(get_date())
     update.message.reply_text(f'{user_text} в созвездии {ephem.constellation(result)}')
+    #for commit
 
 
 def talk_to_me(update, context):
