@@ -18,9 +18,9 @@ def discounted(price, discount, max_discount=20):
     Замените pass на ваш код
     """
     try:
-      price = float(price)
-      discount = float(discount)
-      max_discount = int(max_discount)
+      price = abs(float(price))
+      discount = abs(float(discount))
+      max_discount = abs(int(max_discount))
       if max_discount >= 100:
           raise ValueError('Слишком большая максимальная скидка')
       if discount >= max_discount:
@@ -29,6 +29,7 @@ def discounted(price, discount, max_discount=20):
           return price - (price * discount / 100)
     except (ValueError,TypeError):
       print('Необходимо вводить только числа')
+      #
 
 if __name__ == "__main__":
     print(discounted(100, 2))
